@@ -17,17 +17,20 @@ This group of variable stands for information from goods market. Data collected 
 ### Variable 4 of 10-year Treasury yield minus the fed funds rate
 This group of variable stands for information from bonds market.Data fetched from https://www.multpl.com/10-year-treasury-rate/table/by-month and https://fred.stlouisfed.org/series/FEDFUNDS. Then take difference of them.
 
----
-
 ## Data Cleaning
-First convert labels from "trough month numbers" and "peak month numbers" to month numbers with recession and expension labels (1 for recession, 0 for expension). Discard the month number column.
-Then take log-difference of variable 1 and log-difference monthly-average of variable 2.
+Convert labels from "trough month numbers" and "peak month numbers" to month numbers with recession and expension labels (1 for recession, 0 for expension). Discard the month number column.
+Then take log-difference of variable 1 and log-difference monthly-average of variable 2. The after-processed 5 groups of data all contain only one column which is their value from Feburary 1959 to September 2019 (all 728 lines excluding title). Collabrate them into one single matrix (728 x 5, excluding column names) as input matrix.
 
-The after-processed 5 groups of data all contain only one column which is their value from Feburary 1959 to September 2019 (all 728 lines excluding title). Collabrate them into one single matrix (728 x 5, excluding column names), we have it as input matrix.
+## Parameter Tuning and Prediction
 
----
+### Gamma and C from SVM
+10-fold cross validation is utilized on the first 100 dates to determine hyper-parameters (gamma, C).
 
-## Parameter Tuning
-According to the paper we use 10-fold cross validation on the first 100 dates to determine hyper-parameters (gamma, C).
+### Unbalanced Learning
+Since the unbalanced proportion of recession and non-recession dates, tuned the punish-weights with 10-fold cross validation.
 
-(In fact the paper claims that they fixed gamma as 1/4, "the inverse of number of predictors". However, this number of gamma proves a relatively pool performance. Hence we use gridsearchCV to tune it together with gamma.)
+### Prediction
+Expanding window is utlized for better performance comparing to rolling window.
+
+## Forecasting a recession starting at Feburary 2020
+### With a updated dataset of January 2020, this model predicts a economic recession at Feburary 2020.
