@@ -34,3 +34,5 @@ Expanding window is utlized for better performance comparing to rolling window.
 
 ## Forecasting a recession starting at Feburary 2020
 ### With a updated dataset of January 2020, this model predicts a economic recession at Feburary 2020.
+
+<img src="figs/1.png" width="750">
